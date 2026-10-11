@@ -1,0 +1,19 @@
+{
+  "name": "mongodb-crud-lab",
+  "version": "1.0.0",
+  "description": "MongoDB Local Installation, Atlas Configuration, and mongosh CRUD Operations Experiment",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "lab": "mongosh \"mongodb://127.0.0.1:27017\" crud_operations.js",
+    "shell": "mongosh \"mongodb://127.0.0.1:27017/library\""
+  },
+  "keywords": ["mongodb", "mongosh", "crud", "express"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongodb": "^6.14.2"
+  }
+}

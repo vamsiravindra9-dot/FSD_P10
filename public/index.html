@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MongoDB Local & Atlas CRUD Lab | Experiment Suite</title>
+  <meta name="description" content="Complete MongoDB Installation, Atlas Configuration, and mongosh CRUD Operations Experiment Suite.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-badge">
+        <svg class="mongo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 2C12 2 7 9 7 14C7 17.5 9 21 12 22C15 21 17 17.5 17 14C17 9 12 2 12 2Z" fill="#00ED64" stroke="#00ED64" stroke-width="1.5"/>
+          <path d="M12 2V22" stroke="#001E2B" stroke-width="1.2"/>
+        </svg>
+        <div class="logo-text">
+          <h1>MongoDB Lab Studio</h1>
+          <span class="sub-badge">Part (a) & Part (b) Experiment Suite</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-status">
+      <div class="status-pill" id="server-status-pill">
+        <span class="status-indicator"></span>
+        <span class="status-text" id="status-label">Checking Server...</span>
+      </div>
+      <div class="env-pill">
+        <span class="label">DB:</span> <span class="val highlight" id="db-label">library</span>
+      </div>
+      <div class="env-pill">
+        <span class="label">Coll:</span> <span class="val highlight" id="coll-label">books</span>
+      </div>
+      <button id="btn-reset-lab" class="btn btn-secondary btn-sm" title="Reset collection to initial 3 books">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Reset Lab
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="tab-crud">
+        <span class="tab-icon">⚡</span> Part (b): CRUD Lab & Guided Workflow
+      </button>
+      <button class="tab-btn" data-tab="tab-explorer">
+        <span class="tab-icon">📚</span> Live Database Explorer (<span id="books-count-badge">0</span>)
+      </button>
+      <button class="tab-btn" data-tab="tab-terminal">
+        <span class="tab-icon">💻</span> Interactive mongosh Terminal
+      </button>
+      <button class="tab-btn" data-tab="tab-atlas">
+        <span class="tab-icon">☁️</span> Part (a): Atlas & Installation Setup
+      </button>
+    </nav>
+
+    <!-- TAB 1: CRUD LAB -->
+    <section id="tab-crud" class="tab-content active">
+      <div class="crud-split-layout">
+        <!-- Steps Column -->
+        <div class="crud-steps-panel">
+          <div class="section-banner">
+            <div>
+              <h2>Part (b) – mongosh CRUD Procedure</h2>
+              <p>Step-by-step interactive execution of the experiment requirements.</p>
+            </div>
+            <button id="btn-run-all-steps" class="btn btn-primary">
+              ▶ Run Complete Workflow
+            </button>
+          </div>
+
+          <!-- Step 1 -->
+          <div class="step-card" id="step-card-1">
+            <div class="step-header">
+              <div class="step-meta">
+                <span class="step-number">Step 1</span>
+                <h3>Switch to Database</h3>
+              </div>
+              <span class="op-tag op-db">USE</span>
+            </div>
+            <p class="step-desc">Switch the current shell context to the <code>library</code> database.</p>
+            <div class="code-preview">
+              <div class="code-head"><span>mongosh</span><button class="copy-btn" data-code="use library">Copy</button></div>
+              <pre><code>use library</code></pre>
+            </div>
+            <div class="step-actions">
+              <button class="btn btn-outline btn-step" data-step="1">Execute Step 1</button>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card" id="step-card-2">
+            <div class="step-header">
+              <div class="step-meta">
+                <span class="step-number">Step 2</span>
+                <h3>Insert Documents (Create)</h3>
+              </div>
+              <span class="op-tag op-create">INSERT</span>
+            </div>
+            <p class="step-desc">Insert the 3 required documents with <code>title</code>, <code>author</code>, <code>year</code>, and <code>genre</code>.</p>
+            <div class="code-preview">
+              <div class="code-head"><span>mongosh</span><button class="copy-btn" data-code="db.books.insertMany([&#10;  { title: &quot;To Kill a Mockingbird&quot;, author: &quot;Harper Lee&quot;, year: 1960, genre: &quot;Fiction&quot; },&#10;  { title: &quot;1984&quot;, author: &quot;George Orwell&quot;, year: 1949, genre: &quot;Dystopian&quot; },&#10;  { title: &quot;The Great Gatsby&quot;, author: &quot;F. Scott Fitzgerald&quot;, year: 1925, genre: &quot;Classic&quot; }&#10;])">Copy</button></div>
+              <pre><code>db.books.insertMany([
+  { title: "To Kill a Mockingbird", author: "Harper Lee", year: 1960, genre: "Fiction" },
+  { title: "1984", author: "George Orwell", year: 1949, genre: "Dystopian" },
+  { title: "The Great Gatsby", author: "F. Scott Fitzgerald", year: 1925, genre: "Classic" }
+])</code></pre>
+            </div>
+            <div class="step-actions">
+              <button class="btn btn-outline btn-step" data-step="2">Execute Step 2</button>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card" id="step-card-3">
+            <div class="step-header">
+              <div class="step-meta">
+                <span class="step-number">Step 3</span>
+                <h3>Find and Query Documents (Read)</h3>
+              </div>
+              <span class="op-tag op-read">FIND</span>
+            </div>
+            <p class="step-desc">Query all books and find books by author <code>George Orwell</code>.</p>
+            <div class="code-preview">
+              <div class="code-head"><span>mongosh</span><button class="copy-btn" data-code="db.books.find()&#10;db.books.find({ author: &quot;George Orwell&quot; })">Copy</button></div>
+              <pre><code>// 3a. Display all books
+db.books.find()
+
+// 3b. Find books by specific author
+db.books.find({ author: "George Orwell" })</code></pre>
+            </div>
+            <div class="step-actions">
+              <button class="btn btn-outline btn-step" data-step="3">Execute Step 3</button>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step-card" id="step-card-4">
+            <div class="step-header">
+              <div class="step-meta">
+                <span class="step-number">Step 4</span>
+                <h3>Update the Year of a Book (Update)</h3>
+              </div>
+              <span class="op-tag op-update">UPDATE</span>
+            </div>
+            <p class="step-desc">Update the publication year of <code>1984</code> using <code>$set</code>.</p>
+            <div class="code-preview">
+              <div class="code-head"><span>mongosh</span><button class="copy-btn" data-code="db.books.updateOne(&#10;  { title: &quot;1984&quot; },&#10;  { $set: { year: 1950, genre: &quot;Dystopian Fiction&quot; } }&#10;)">Copy</button></div>
+              <pre><code>db.books.updateOne(
+  { title: "1984" },
+  { $set: { year: 1950, genre: "Dystopian Fiction" } }
+)</code></pre>
+            </div>
+            <div class="step-actions">
+              <button class="btn btn-outline btn-step" data-step="4">Execute Step 4</button>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="step-card" id="step-card-5">
+            <div class="step-header">
+              <div class="step-meta">
+                <span class="step-number">Step 5</span>
+                <h3>Delete a Book by Title (Delete)</h3>
+              </div>
+              <span class="op-tag op-delete">DELETE</span>
+            </div>
+            <p class="step-desc">Delete <code>The Great Gatsby</code> from the collection.</p>
+            <div class="code-preview">
+              <div class="code-head"><span>mongosh</span><button class="copy-btn" data-code="db.books.deleteOne({ title: &quot;The Great Gatsby&quot; })">Copy</button></div>
+              <pre><code>db.books.deleteOne({ title: "The Great Gatsby" })</code></pre>
+            </div>
+            <div class="step-actions">
+              <button class="btn btn-outline btn-step" data-step="5">Execute Step 5</button>
+            </div>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="step-card" id="step-card-6">
+            <div class="step-header">
+              <div class="step-meta">
+                <span class="step-number">Step 6</span>
+                <h3>Verify Final Collection State</h3>
+              </div>
+              <span class="op-tag op-verify">VERIFY</span>
+            </div>
+            <p class="step-desc">Inspect the remaining documents in the collection.</p>
+            <div class="code-preview">
+              <div class="code-head"><span>mongosh</span><button class="copy-btn" data-code="db.books.find().pretty()">Copy</button></div>
+              <pre><code>db.books.find().pretty()</code></pre>
+            </div>
+            <div class="step-actions">
+              <button class="btn btn-outline btn-step" data-step="6">Execute Step 6</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output & Inspector Column -->
+        <div class="crud-output-panel">
+          <div class="output-card">
+            <div class="output-card-header">
+              <div class="output-title">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="title-text">Execution Console Output</span>
+              </div>
+              <button id="btn-clear-output" class="btn btn-icon" title="Clear Console">✕</button>
+            </div>
+            <div class="terminal-display" id="lab-terminal-output">
+              <div class="term-line info-line">=== MongoDB Lab Ready ===</div>
+              <div class="term-line dim-line">Connected to: mongodb://127.0.0.1:27017/library</div>
+              <div class="term-line dim-line">Click "Execute Step" on any card or "Run Complete Workflow" to start.</div>
+            </div>
+          </div>
+
+          <div class="live-snapshot-card">
+            <div class="snapshot-header">
+              <h3>Live Collection State (<code>library.books</code>)</h3>
+              <button id="btn-refresh-snapshot" class="btn btn-icon" title="Refresh">↻</button>
+            </div>
+            <div class="snapshot-body" id="snapshot-docs-list">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: VISUAL DATABASE EXPLORER -->
+    <section id="tab-explorer" class="tab-content">
+      <div class="explorer-layout">
+        <div class="explorer-toolbar">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="explorer-search-input" placeholder="Search by title, author, or genre...">
+          </div>
+          <div class="filter-group">
+            <select id="genre-filter">
+              <option value="">All Genres</option>
+              <option value="Fiction">Fiction</option>
+              <option value="Dystopian">Dystopian</option>
+              <option value="Classic">Classic</option>
+              <option value="Adventure">Adventure</option>
+            </select>
+          </div>
+          <button id="btn-open-insert-modal" class="btn btn-primary">
+            + Insert New Book
+          </button>
+        </div>
+
+        <div class="books-grid" id="books-grid-container">
+          <!-- Book Cards rendered here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: INTERACTIVE MONGOSH TERMINAL -->
+    <section id="tab-terminal" class="tab-content">
+      <div class="terminal-view-layout">
+        <div class="terminal-quick-bar">
+          <span class="bar-title">Quick Snippets:</span>
+          <button class="pill-btn snippet-btn" data-snippet="db.books.find().pretty()">db.books.find()</button>
+          <button class="pill-btn snippet-btn" data-snippet="db.books.find({ author: 'George Orwell' })">Find Orwell</button>
+          <button class="pill-btn snippet-btn" data-snippet="db.books.find({ year: { $gt: 1940 } })">Year &gt; 1940</button>
+          <button class="pill-btn snippet-btn" data-snippet="db.books.countDocuments()">Count Docs</button>
+          <button class="pill-btn snippet-btn" data-snippet="db.stats()">db.stats()</button>
+        </div>
+
+        <div class="terminal-window">
+          <div class="term-window-header">
+            <div class="window-buttons">
+              <span class="circle close"></span>
+              <span class="circle minimize"></span>
+              <span class="circle maximize"></span>
+            </div>
+            <span class="window-title">mongosh (v2.13.0) — library@localhost:27017</span>
+            <button id="btn-term-clear" class="btn btn-xs">Clear</button>
+          </div>
+          <div class="term-window-body" id="interactive-terminal-body">
+            <div class="term-row dim-line">MongoDB Shell version v2.13.0</div>
+            <div class="term-row dim-line">Connecting to: mongodb://127.0.0.1:27017/library</div>
+            <div class="term-row dim-line">Type any mongosh JavaScript expression and press Enter or click Execute.</div>
+          </div>
+          <div class="terminal-input-bar">
+            <span class="prompt-sym">library&gt;</span>
+            <input type="text" id="terminal-cmd-input" placeholder="db.books.find()" autocomplete="off" spellcheck="false">
+            <button id="btn-terminal-exec" class="btn btn-primary btn-sm">Run</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: PART (a) ATLAS & SETUP GUIDE -->
+    <section id="tab-atlas" class="tab-content">
+      <div class="atlas-layout">
+        <!-- Local Verification Card -->
+        <div class="card glass-card">
+          <div class="card-header">
+            <h3>Part (a) Local MongoDB Verification</h3>
+            <span class="badge badge-success">Verified Active</span>
+          </div>
+          <div class="card-body">
+            <p>Your local MongoDB server was successfully detected and verified on this machine:</p>
+            <div class="system-stats-grid">
+              <div class="stat-box">
+                <span class="stat-name">Daemon Version</span>
+                <span class="stat-value" id="stat-mongod-ver">v8.2.1</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-name">mongosh Version</span>
+                <span class="stat-value" id="stat-mongosh-ver">v2.13.0</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-name">Service Status</span>
+                <span class="stat-value highlight-green">Running</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-name">Default Port</span>
+                <span class="stat-value">27017</span>
+              </div>
+            </div>
+            <div class="cli-command-box">
+              <span class="cmd-title">Terminal Verification Commands:</span>
+              <pre><code>mongod --version
+mongosh --version
+mongosh "mongodb://localhost:27017"</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atlas Cluster Setup Walkthrough -->
+        <div class="card glass-card">
+          <div class="card-header">
+            <h3>Part (a) MongoDB Atlas Cloud Cluster Configuration</h3>
+            <span class="badge badge-atlas">Cloud M0</span>
+          </div>
+          <div class="card-body">
+            <div class="atlas-steps-list">
+              <div class="atlas-step-item">
+                <span class="step-badge">1</span>
+                <div>
+                  <strong>Register & Create Cluster:</strong>
+                  <p>Visit <a href="https://www.mongodb.com/cloud/atlas" target="_blank" rel="noopener">mongodb.com/cloud/atlas</a>, register for free, and create an <strong>M0 (Free Forever)</strong> cluster.</p>
+                </div>
+              </div>
+              <div class="atlas-step-item">
+                <span class="step-badge">2</span>
+                <div>
+                  <strong>Network Access (IP Whitelist):</strong>
+                  <p>Go to <em>Security → Network Access → Add IP Address</em>. Choose <strong>Allow Access from Anywhere (0.0.0.0/0)</strong> or add your current public IP.</p>
+                </div>
+              </div>
+              <div class="atlas-step-item">
+                <span class="step-badge">3</span>
+                <div>
+                  <strong>Database Access (Credentials):</strong>
+                  <p>Go to <em>Security → Database Access → Add New Database User</em>. Use Built-in Role: <strong>Read and write to any database</strong>.</p>
+                </div>
+              </div>
+              <div class="atlas-step-item">
+                <span class="step-badge">4</span>
+                <div>
+                  <strong>Obtain Connection String:</strong>
+                  <p>Click <em>Connect → mongosh</em>, copy the SRV URI: <code>mongodb+srv://&lt;username&gt;:&lt;password&gt;@cluster0.abcde.mongodb.net/library</code></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Atlas Connection Tester -->
+            <div class="atlas-tester-box">
+              <h4>Test Remote Atlas Connection</h4>
+              <p>Paste your MongoDB Atlas connection string below to test live connectivity from this server:</p>
+              <div class="tester-input-row">
+                <input type="text" id="atlas-uri-input" placeholder="mongodb+srv://<username>:<password>@cluster0.xxxx.mongodb.net/library">
+                <button id="btn-test-atlas" class="btn btn-primary">Test Atlas Cluster</button>
+              </div>
+              <div id="atlas-test-result" class="test-result-box hidden"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Insert Book Modal -->
+  <div id="insert-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Insert New Book Document</h3>
+        <button id="btn-close-modal" class="btn btn-icon">✕</button>
+      </div>
+      <form id="insert-book-form">
+        <div class="form-group">
+          <label for="form-title">Book Title</label>
+          <input type="text" id="form-title" required placeholder="e.g. Brave New World">
+        </div>
+        <div class="form-group">
+          <label for="form-author">Author</label>
+          <input type="text" id="form-author" required placeholder="e.g. Aldous Huxley">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-year">Publication Year</label>
+            <input type="number" id="form-year" required placeholder="1932" value="1932">
+          </div>
+          <div class="form-group">
+            <label for="form-genre">Genre</label>
+            <input type="text" id="form-genre" required placeholder="Dystopian">
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="btn-cancel-modal" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Insert Document</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <span>MongoDB Lab Experiment Suite • Built with HTML, Vanilla CSS & Express/MongoDB</span>
+    <span>Local Server: <code>mongodb://127.0.0.1:27017</code></span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

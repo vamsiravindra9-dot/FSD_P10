@@ -1,0 +1,91 @@
+// ==============================================================================
+// MongoDB Experiment: Part (b) CRUD Operations Reference Commands
+// Database: library
+// Collection: books
+// ==============================================================================
+
+// ------------------------------------------------------------------------------
+// Step 1: Switch to Database
+// ------------------------------------------------------------------------------
+use library
+
+// ------------------------------------------------------------------------------
+// Step 2: Insert Documents (Create)
+// Insert single document:
+// ------------------------------------------------------------------------------
+db.books.insertOne({
+  title: "To Kill a Mockingbird",
+  author: "Harper Lee",
+  year: 1960,
+  genre: "Fiction"
+})
+
+// Insert multiple documents:
+db.books.insertMany([
+  {
+    title: "1984",
+    author: "George Orwell",
+    year: 1949,
+    genre: "Dystopian"
+  },
+  {
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    year: 1925,
+    genre: "Classic"
+  },
+  {
+    title: "Moby Dick",
+    author: "Herman Melville",
+    year: 1851,
+    genre: "Adventure"
+  }
+])
+
+// ------------------------------------------------------------------------------
+// Step 3: Read Documents (Find)
+// ------------------------------------------------------------------------------
+// Find and display all books:
+db.books.find()
+
+// Format output for readability:
+db.books.find().pretty()
+
+// Find a single document:
+db.books.findOne()
+
+// Find books by a specific author:
+db.books.find({ author: "George Orwell" })
+
+// Find books published after 1950:
+db.books.find({ year: { $gt: 1950 } })
+
+// ------------------------------------------------------------------------------
+// Step 4: Update Documents
+// ------------------------------------------------------------------------------
+// Update a single document's year and genre:
+db.books.updateOne(
+  { title: "1984" },
+  { $set: { year: 1950, genre: "Dystopian Fiction" } }
+)
+
+// Update multiple documents (set inStock field):
+db.books.updateMany(
+  { genre: "Fiction" },
+  { $set: { inStock: true } }
+)
+
+// ------------------------------------------------------------------------------
+// Step 5: Delete Documents
+// ------------------------------------------------------------------------------
+// Delete a single document by its title:
+db.books.deleteOne({ title: "The Great Gatsby" })
+
+// Delete multiple documents matching a criteria:
+db.books.deleteMany({ genre: "Adventure" })
+
+// ------------------------------------------------------------------------------
+// Step 6: Verify Operations
+// ------------------------------------------------------------------------------
+// Final collection state:
+db.books.find().pretty()
